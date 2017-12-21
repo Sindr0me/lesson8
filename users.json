@@ -1,0 +1,18 @@
+[{
+ "id": 1,
+"login": "user1",
+"password": "7c6a180b36896a0a8c02787eeafb0e4c",
+"username": "Саша"
+},
+{
+    "id": 2,
+ "login": "user2",
+ "password": "6cb75f652a9b52798eb6cf2201057c73",
+"username": "Вова" 
+},
+{
+ "id": 3,
+ "login": "user3",
+ "password": "819b0643d6b89dc9b579fdfc9094f28e",
+"username": "Лена"
+}]
