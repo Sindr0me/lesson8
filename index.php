@@ -18,10 +18,6 @@ if (isPost()) {
     // }
 
 
-if (getParamPost ('guest-name')){
-    session_start();
-    redirect('list');
-}
     
 
 ?>
@@ -57,14 +53,17 @@ foreach ($errors as $error) {
     </form>
 </br>
 <p>Авторизируйтесь выше или войдите как гость:</p>
-    <form method="POST"  id="guest-form">
+    <form method="POST"  id="guest-form" action="list.php">
         <div class>
             <label for="lg" class="sr-only">Введите имя</label>
             <input type="text" name="guest-name" id="lg" class="form-control" placeholder="Имя">
         </div>
 
-        <input id="btn_login" class="btn btn-custom btn-lg btn-block" type="submit" value="Отправить" name="name">
+        <input id="btn_login" class="btn btn-custom btn-lg btn-block" type="submit" value="Отправить" name="submit">
     </form>
+<?php
 
+
+?>
 </body>
 </html>
