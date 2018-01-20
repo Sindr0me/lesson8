@@ -1,8 +1,12 @@
 <?php
 require_once 'functions.php';
 
-    if (!isAuthorized()){
-    redirect('index');}else{ echo "Добро пожаловать, ", $_SESSION['user']["username"];}
+    if (!empty($_POST["guest-name"])) {
+        echo "Добро пожаловать, ", $_POST["guest-name"];
+    } else {
+            if (!isAuthorized()){
+            redirect('index');}else{ echo "Добро пожаловать, ", $_SESSION['user']["username"];}
+    }
 
 $json = "json";
 $files_dir = "./tests";
@@ -27,16 +31,18 @@ for ($i = 0; $i < count($files_list); $i++){
 <body>
 <nav>
     <ul>
-        <li><a href="list.php">Список тестов</a></li>
         <li><a href="admin.php">Загрузить тест</a></li>
     </ul>
 </nav>
 <div class="list">
     <ul>
         <?php
-        for ($i = 0; $i < count($jsn_files); $i++) {
-            echo "<li><a href='test.php?id=".$i."'>Тест №".$i."</a></li>";
+        for ($i = -1; $i < count($jsn_files); $i++) {
+            echo "<li><a href='test.php?id=".$i."'>Тест №".$i."</a>  <a href=''>Удалить тест №".$i."</a></li>";
             }
+            // if (is_file($filename) && is_wirtable($filename)){
+            //     unlink($filename);} else {echo "не удален.";}
+            
         ?>
     </ul>
 </div>
