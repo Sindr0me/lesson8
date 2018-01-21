@@ -8,19 +8,19 @@ require_once 'functions.php';
             redirect('index');}else{ echo "Добро пожаловать, ", $_SESSION['user']["username"];}
     }
 
-$json = "json";
-$files_dir = "./tests";
-$files_list = scandir($files_dir);
-$jsn_files = [];
+$validFileExtension = "json";
+$filesDir = "./tests";
 
-for ($i = 0; $i < count($files_list); $i++){
-    $explode = explode(".", $files_list[$i]);
-    if ($explode[1] === $json){
-        array_push($jsn_files, $files_list[$i]);
+if (!empty($_GET['delete'])){
+    $wayToFile = $filesDir.'/'.$_GET['delete'];
+
+    if (file_exists($wayToFile)){
+        unlink($wayToFile);
     }
 }
-?>
 
+$filesList = is_dir($filesDir) ? scandir($filesDir) : array();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,14 +36,25 @@ for ($i = 0; $i < count($files_list); $i++){
 </nav>
 <div class="list">
     <ul>
-        <?php
-        for ($i = -1; $i < count($jsn_files); $i++) {
-            echo "<li><a href='test.php?id=".$i."'>Тест №".$i."</a>  <a href=''>Удалить тест №".$i."</a></li>";
-            }
-            // if (is_file($filename) && is_wirtable($filename)){
-            //     unlink($filename);} else {echo "не удален.";}
-            
-        ?>
+
+        <?php if (empty($_POST["guest-name"])){
+        foreach ($filesList as $fileName):?>
+            <?php if( pathinfo($filesDir.'/'.$fileName, PATHINFO_EXTENSION) == $validFileExtension):?>
+                <li><a href='test.php?id=<?=$fileName?>'><?=$fileName?></a><a href='<?=$_SERVER['SCRIPT_NAME']?>?delete=<?=$fileName?>'>Удалить <?=$fileName?></a></li>
+        <?php endif;
+        endforeach;
+        }
+
+        else { ?>
+        <?php foreach ($filesList as $fileName):?>
+        <?php if( pathinfo($filesDir.'/'.$fileName, PATHINFO_EXTENSION) == $validFileExtension):?>
+        <li><a href='test.php?id=<?=$fileName?>'>
+        <?=$fileName?></a></li>  
+        <?php endif;
+        endforeach;
+        }?>
+    
+
     </ul>
 </div>
 </body>
